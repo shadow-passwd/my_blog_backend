@@ -11,7 +11,6 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
-import django_heroku
 import dj_database_url
 
 
@@ -27,9 +26,9 @@ MEDIA_DIR = os.path.join(BASE_DIR, 'images')
 SECRET_KEY = 'n8b-n0bn95p4odujm0n(qh)rnoayv2==mt2pc6yx^(g512at^r'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1', 'herokuapp.com']
+ALLOWED_HOSTS = ['*', ]
 
 
 # Application definition
@@ -67,6 +66,7 @@ MIDDLEWARE = [
     # for cors
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
+    
 
 ]
 CORS_ORIGIN_ALLOW_ALL = True
@@ -95,18 +95,12 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
-
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'shadowPasswd',
-        'USER': 'shadow',
-        'PASSWORD': '',
-        'HOST': 'localhost',
-        'PORT': '',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
-
 db_from_env = dj_database_url.config(conn_max_age=500)
 DATABASES['default'].update(db_from_env)
 
@@ -159,8 +153,7 @@ STATIC_URL = '/static/'
 MEDIA_ROOT = MEDIA_DIR
 MEDIA_URL = '/images/'
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATICFILES_STORAGE='whitenoise.django.GzipManifestStaticFilesStorage'
 
-django_heroku.settings(locals())
 
-STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
