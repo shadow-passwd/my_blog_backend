@@ -99,8 +99,8 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'djangogirls',
-        'USER': 'name',
+        'NAME': 'shadowPasswd',
+        'USER': 'shadow',
         'PASSWORD': '',
         'HOST': 'localhost',
         'PORT': '',
@@ -162,3 +162,5 @@ MEDIA_URL = '/images/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
 
 django_heroku.settings(locals())
+
+STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
